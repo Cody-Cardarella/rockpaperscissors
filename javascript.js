@@ -1,27 +1,58 @@
-const options = ["Rock", "Paper","Scissors"] // Define the options
-let computerSelection = getComputerChoice().toUpperCase(); // Set Computer Selection to the return of the function
-let theOne = prompt('Pick Rock, Paper, or Scissors!').toUpperCase(); // Assign variable to user selection
+//Rock Paper Scissors
+const options = ["Rock", "Paper","Scissors"]; // Define the game options
+let computerSelection = getComputerChoice().toUpperCase(); // Assign the computer selection from function
+let theOne;
+let draw = 0;
+let pcWin = 0;
+let playerWin = 0;
 
-// Function to generate a random option
+// Function to generate a random option for computer
 function getComputerChoice() {
+
     let number = Math.floor(Math.random() * 3);
     let computerOption = options[number];
     return computerOption;
-}
+    
+};
 
-
-// Function to play a round and compare player selection to computer selection
+// Function to play a round and determine winner
 function playRound(playerChoice, computerChoice){
-    if (theOne == computerChoice){
-        console.log('It\'s a draw!')
+
+    if (playerChoice == computerChoice){
+        draw++;
+        console.log('It\'s a draw');
+    } else if (playerChoice == 'ROCK' && computerChoice == 'SCISSORS' || playerChoice == 'SCISSORS' && computerChoice == 'PAPER' || playerChoice == 'PAPER' && computerChoice == 'ROCK'){
+        playerWin++;
+        console.log('Player won this round');
+    } else if (playerChoice == 'ROCK' && computerChoice == 'PAPER' || playerChoice == 'PAPER' && computerChoice == 'SCISSORS' || playerChoice == 'SCISSORS' && computerChoice == 'ROCK' ) {
+        pcWin++;
+        console.log('Computer has won this round');
+    } else {
+        console.log('You must\'ve made a typo.')
     };
-    if (theOne == 'ROCK ' && computerChoice == 'SCISSORS' || theOne == 'SCISSORS' && computerChoice == 'PAPER' || theOne == 'PAPER' && computerChoice == 'ROCK'){
-        console.log('You won!')
-    } else if (theOne == 'ROCK' && computerChoice == 'PAPER' || theOne == 'PAPER' && computerChoice == 'SCISSORS' || theOne == 'SCISSORS' && computerChoice == 'ROCK' ) {
-        console.log('Computer won!')
-    };
+    
  };
 
- console.log('You: ' + theOne);
- console.log('Computer: ' + computerSelection);
- playRound(theOne, computerSelection);
+ // Looping the game 5 times
+function game() {
+
+    for (let i = 1; i <=5; i++) {
+    theOne = prompt('Pick Rock, Paper, or Scissors!').toUpperCase(); // Assign user selection from prompt
+    playRound(theOne, computerSelection);
+    };
+
+};
+
+// Deciding the winner
+function runGame (){
+
+    game();
+    if (playerWin > pcWin){
+        console.log('Player has won')
+    } else {
+        console.log('PC has won')
+    };
+
+};
+
+runGame();
